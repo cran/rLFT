@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="William Kirkpatrick" />
+
+<meta name="date" content="2020-06-11" />
+
+<title>Introduction to Linear Feature Tools (rLFT)</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to Linear Feature Tools (rLFT)</h1>
+<h4 class="author">William Kirkpatrick</h4>
+<h4 class="date">June 11, 2020</h4>
+
+
+
+<div id="rlft-introduction-and-guide" class="section level2">
+<h2>rLFT Introduction and Guide</h2>
+<p>This vignette will demonstrate how to use all of the linear feature tools available. rLFT makes use of linear referencing techniques and relies on the sf package to manipulate and extract data from given linear features.</p>
+</div>
+<div id="example-boundary-convexity-tool-bct" class="section level2">
+<h2>Example: Boundary Convexity Tool (BCT)</h2>
+<p>The BCT calculates the Raw Convexity value, Convexity Index, and Sinuosity at all user defined window-sizes simultaneously. The tool calculates one feature at a time and goes through the following process on each feature:</p>
+<ol style="list-style-type: decimal">
+<li><p>Adds m-values to the feature by using euclidean distance between x and y coordinates along the line. If you simply want to add measure values to your feature you can use the <code>addMValues</code> function.</p></li>
+<li><p>Check if the feature is a polygon so we know to start calculating at the first vertex, or move to the first vertex that is equal to <span class="math inline">\(window / 2\)</span> from the beginning and the same distance from the ending vertex of the line.</p></li>
+<li><p>While checking against the max m-value get three m-based points. Using these three points we create an arc and use that to calculate the convexity and sinuosity. For example we get the center point with the following equation: <span class="math inline">\(M + window/ 2\)</span> where M is the current measure value and window is the selected window size. The first point is just the measure value and the last point is <span class="math inline">\(M + window\)</span>.</p></li>
+<li><p>Format and store the data in a matirx.</p></li>
+<li><p>Increment step-size by user-defined value and repeat steps 3-5 until max-m value is reached.</p></li>
+<li><p>Return a data.frame with all the measurements (raw convexity, convexity index, sinuosity) for each feature and step size.</p></li>
+</ol>
+<p>Below is an example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(rLFT)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="co">#&gt; Loading required package: Rcpp</span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co">#&gt; Loading required package: sf</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="co">#&gt; Linking to GEOS 3.6.1, GDAL 2.2.3, PROJ 4.9.3</span></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="co"># read in example data</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="kw">data</span>(<span class="st">&quot;shpObject&quot;</span>)</a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="co"># to read in your own shp file use the sf package function st_read()</span></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="co"># choose any positive window size and step size. Here I use 50 for step size and 100 for window size.</span></a>
+<a class="sourceLine" id="cb1-10" title="10">outputTable &lt;-<span class="st"> </span><span class="kw">bct</span>(shpObject, <span class="dt">step =</span> <span class="dv">50</span>, <span class="dt">window =</span> <span class="dv">100</span>, <span class="dt">ridName =</span> <span class="st">&quot;RID&quot;</span>)</a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt;    user  system elapsed </span></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt;    0.05    0.00    0.05 </span></a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="co">#&gt; [1] &quot;Features skipped due to size: &quot;</span></a>
+<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt;  [1]  3  4  5  6  7  9 10 12 14 16 17 18 19 21 22 23 25 26 27 28 29 30 31 32 33</span></a>
+<a class="sourceLine" id="cb1-15" title="15"><span class="co">#&gt; [26] 34 35 36 37</span></a>
+<a class="sourceLine" id="cb1-16" title="16">outputTable<span class="op">$</span>RID&lt;-<span class="st"> </span><span class="kw">as.character</span>(outputTable<span class="op">$</span>RID)</a>
+<a class="sourceLine" id="cb1-17" title="17"><span class="co"># You can then look over the data using:</span></a>
+<a class="sourceLine" id="cb1-18" title="18"><span class="kw">head</span>(outputTable)</a>
+<a class="sourceLine" id="cb1-19" title="19"><span class="co">#&gt;   FID      RID MidMeas WindowSize RawConvexity ConvexityIndex Sinuosity</span></a>
+<a class="sourceLine" id="cb1-20" title="20"><span class="co">#&gt; 1   1 Feat1310       0        100       28.549          0.571     0.635</span></a>
+<a class="sourceLine" id="cb1-21" title="21"><span class="co">#&gt; 2   1 Feat1310      50        100      -18.641         -0.373     0.578</span></a>
+<a class="sourceLine" id="cb1-22" title="22"><span class="co">#&gt; 3   1 Feat1310     100        100      -19.891         -0.398     0.625</span></a>
+<a class="sourceLine" id="cb1-23" title="23"><span class="co">#&gt; 4   1 Feat1310     150        100       24.944          0.499     0.623</span></a>
+<a class="sourceLine" id="cb1-24" title="24"><span class="co">#&gt; 5   1 Feat1310     200        100        2.458          0.049     0.501</span></a>
+<a class="sourceLine" id="cb1-25" title="25"><span class="co">#&gt; 6   1 Feat1310     250        100        9.879          0.198     0.512</span></a>
+<a class="sourceLine" id="cb1-26" title="26"><span class="co">#&gt;   Midpoint_X Midpoint_Y</span></a>
+<a class="sourceLine" id="cb1-27" title="27"><span class="co">#&gt; 1   354048.5    1226757</span></a>
+<a class="sourceLine" id="cb1-28" title="28"><span class="co">#&gt; 2   354045.2    1226806</span></a>
+<a class="sourceLine" id="cb1-29" title="29"><span class="co">#&gt; 3   354010.6    1226834</span></a>
+<a class="sourceLine" id="cb1-30" title="30"><span class="co">#&gt; 4   353967.2    1226824</span></a>
+<a class="sourceLine" id="cb1-31" title="31"><span class="co">#&gt; 5   353935.4    1226862</span></a>
+<a class="sourceLine" id="cb1-32" title="32"><span class="co">#&gt; 6   353907.5    1226904</span></a></code></pre></div>
+<p>We can visualize the results of the function:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># Make the table spatially aware</span></a>
+<a class="sourceLine" id="cb2-2" title="2">outSF&lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(outputTable, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;Midpoint_X&quot;</span>, <span class="st">&quot;Midpoint_Y&quot;</span>), <span class="dt">crs =</span> <span class="kw">st_crs</span>(shpObject), <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb2-3" title="3"></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co"># plot a single island</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="kw">ggplot</span>(<span class="dt">data =</span> outSF[<span class="kw">which</span>(outSF<span class="op">$</span>RID <span class="op">==</span><span class="st"> </span><span class="kw">as.character</span>(shpObject<span class="op">$</span>RID[<span class="dv">15</span>])), ]) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_cast</span>(shpObject[<span class="dv">15</span>,], <span class="st">&quot;POLYGON&quot;</span>), <span class="kw">aes</span>(<span class="dt">fill =</span> RID)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="st">  </span><span class="kw">geom_sf</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="st">  </span><span class="kw">geom_sf_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> RawConvexity), <span class="dt">nudge_x =</span> <span class="dv">20</span>, <span class="dt">nudge_y =</span> <span class="dv">12</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="st">  </span><span class="kw">theme_classic</span>()</a></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p>For a complete definition of the method, see: Albeke, S.E. et al. <em>“Measuring boundary convexity at multiple spatial scales using a linear “moving window” analysis: an application to coastal river otter habitat selection.”</em> Landscape Ecology 25 (2010): 1575-1587. <a href="https://link.springer.com/article/10.1007/s10980-010-9528-4">linked phrase</a></p>
+<div id="example-of-addmvalues-function" class="section level3">
+<h3>Example of ‘addMvalues’ function</h3>
+<p>You can use this function if you just want M values added to your sf object. Your sf object must be of type LINESTRING, MULTILINESTRING, POLYGON, or MULTIPOLYGON. The M Values are calculated by using the euclidean distance between the sf objects x and y coordinates (The sf library does not know how to handle M values so it treats them as Z values.)</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">data</span>(<span class="st">&quot;shpObject&quot;</span>)</a>
+<a class="sourceLine" id="cb3-2" title="2">monly &lt;-<span class="st"> </span>shpObject</a>
+<a class="sourceLine" id="cb3-3" title="3"></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">#Display coordinates</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="kw">print</span>(<span class="st">&quot;No M Values&quot;</span>)</a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt; [1] &quot;No M Values&quot;</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="kw">head</span>(<span class="kw">st_coordinates</span>(monly))</a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt;             X       Y L1</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt; [1,] 354048.5 1226757  1</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt; [2,] 354047.0 1226759  1</span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt; [3,] 354047.0 1226760  1</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt; [4,] 354046.9 1226798  1</span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; [5,] 354044.8 1226808  1</span></a>
+<a class="sourceLine" id="cb3-14" title="14"><span class="co">#&gt; [6,] 354041.0 1226816  1</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># Assign M values to each vertex</span></a>
+<a class="sourceLine" id="cb4-2" title="2">monly &lt;-<span class="st"> </span><span class="kw">addMValues</span>(monly)</a>
+<a class="sourceLine" id="cb4-3" title="3"></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="kw">print</span>(<span class="st">&quot;M Values Added&quot;</span>)</a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt; [1] &quot;M Values Added&quot;</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="kw">head</span>(<span class="kw">st_coordinates</span>(monly))</a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt;             X       Y         M L1</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt; [1,] 354048.5 1226757  0.000000  1</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; [2,] 354047.0 1226759  2.449931  1</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; [3,] 354047.0 1226760  3.720473  1</span></a>
+<a class="sourceLine" id="cb4-11" title="11"><span class="co">#&gt; [4,] 354046.9 1226798 41.838002  1</span></a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="co">#&gt; [5,] 354044.8 1226808 51.931361  1</span></a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="co">#&gt; [6,] 354041.0 1226816 60.504098  1</span></a></code></pre></div>
+</div>
+</div>
+<div id="planned-future-functionality" class="section level2">
+<h2>Planned Future Functionality</h2>
+<ul>
+<li>Be able to take a set of points and snap them to the route layer and give the points the measure value of where they snap (snap = closest location on the route).</li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

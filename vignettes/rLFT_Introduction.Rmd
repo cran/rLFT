@@ -1,0 +1,95 @@
+---
+title: "Introduction to Linear Feature Tools (rLFT)"
+author: "William Kirkpatrick"
+date: "June 11, 2020"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{rLFT_Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+## rLFT Introduction and Guide
+This vignette will demonstrate how to use all of the linear feature tools available. rLFT makes use of linear referencing techniques and relies on the sf package to manipulate and extract data from given linear features.
+
+## Example: Boundary Convexity Tool (BCT)
+The BCT calculates the Raw Convexity value, Convexity Index, and Sinuosity at all user defined window-sizes simultaneously. The tool calculates one feature at a time and goes through the following process on each feature:
+
+1. Adds m-values to the feature by using euclidean distance between x and y coordinates along the line. If you simply want to add measure values to your feature you can use the `addMValues` function.
+
+1. Check if the feature is a polygon so we know to start calculating at the first vertex, or move to the first vertex that is equal to $window / 2$ from the beginning and the same distance from the ending vertex of the line.
+
+1. While checking against the max m-value get three m-based points. Using these three points we create an arc and use that to calculate the convexity and sinuosity. For example we get the center point with the following equation: $M + window/ 2$ where M is the current measure value and window is the selected window size. The first point is just the measure value and the last point is $M + window$.
+
+1. Format and store the data in a matirx.
+
+1. Increment step-size by user-defined value and repeat steps 3-5 until max-m value is reached.
+
+1. Return a data.frame with all the measurements (raw convexity, convexity index, sinuosity) for each feature and step size.
+
+Below is an example:
+
+```{r setup}
+library(rLFT)
+library(ggplot2)
+# read in example data
+data("shpObject")
+# to read in your own shp file use the sf package function st_read()
+# choose any positive window size and step size. Here I use 50 for step size and 100 for window size.
+outputTable <- bct(shpObject, step = 50, window = 100, ridName = "RID")
+outputTable$RID<- as.character(outputTable$RID)
+# You can then look over the data using:
+head(outputTable)
+
+```
+
+We can visualize the results of the function:
+```{r fig.align='center', fig.height=5, fig.width=6}
+# Make the table spatially aware
+outSF<- st_as_sf(outputTable, coords = c("Midpoint_X", "Midpoint_Y"), crs = st_crs(shpObject), stringsAsFactors = FALSE)
+
+# plot a single island
+ggplot(data = outSF[which(outSF$RID == as.character(shpObject$RID[15])), ]) +
+  geom_sf(data = st_cast(shpObject[15,], "POLYGON"), aes(fill = RID)) +
+  geom_sf() +
+  geom_sf_text(aes(label = RawConvexity), nudge_x = 20, nudge_y = 12) +
+  theme_classic()
+
+```
+
+
+For a complete definition of the method, see: Albeke, S.E. et al. *“Measuring boundary convexity at multiple spatial scales using a linear “moving window” analysis: an application to coastal river otter habitat selection.”* Landscape Ecology 25 (2010): 1575-1587. [linked phrase](https://link.springer.com/article/10.1007/s10980-010-9528-4)
+
+### Example of 'addMvalues' function
+You can use this function if you just want M values added to your sf object. 
+Your sf object must be of type LINESTRING, MULTILINESTRING, POLYGON, or MULTIPOLYGON.
+The M Values are calculated by using the euclidean distance between the sf objects x and y coordinates
+(The sf library does not know how to handle M values so it treats them as Z values.)
+
+```{r}
+data("shpObject")
+monly <- shpObject
+
+#Display coordinates
+print("No M Values")
+head(st_coordinates(monly))
+```
+```{r}
+# Assign M values to each vertex
+monly <- addMValues(monly)
+
+print("M Values Added")
+head(st_coordinates(monly))
+```
+ 
+## Planned Future Functionality
+* Be able to take a set of points and snap them to the route layer and give the points the measure value of where they snap (snap = closest location on the route).
+

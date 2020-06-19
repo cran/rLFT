@@ -1,0 +1,6 @@
+useDynLib(rLFT, .registration=TRUE)
+exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp, evalCpp)
+import(sf)
+export(addMValues)
+export(bct)

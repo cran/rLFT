@@ -31,11 +31,14 @@ NumericMatrix CalcBoundaryConvex(NumericMatrix feature, double windowSize, doubl
 {
   
   std::ofstream myfile;
+  
   // Open file for writing if its given
   if (!(filename.empty()))
   {
     
     myfile.open(filename.c_str(), std::ios_base::app);
+    
+    
   }
   
   // Initialize variables
@@ -47,6 +50,15 @@ NumericMatrix CalcBoundaryConvex(NumericMatrix feature, double windowSize, doubl
   int i = 0;
   // allocate output matrix size
   NumericMatrix output(1, 7);
+  // initalize string vector for writing data to file
+  StringMatrix fileOutput(1,9);
+  if (noRID) // dimension 1,8
+  {
+    fileOutput.attr("dim") = Dimension(1,8);
+    
+  }
+  
+  
   
   // check if current feature is an island to calculate the point at zero
   if (isIsland(feature))
@@ -71,25 +83,81 @@ NumericMatrix CalcBoundaryConvex(NumericMatrix feature, double windowSize, doubl
         NumericVector zeroConvex = calcConvex(zeroCircle, window);
         zeroSinStuff = calcSinuosity(zeroCircle, window);
         NumericVector zeroTemp = NumericVector::create(round(zerop2[2]), window, zeroConvex[0], zeroConvex[1], zeroSinStuff, zerop2[0], zerop2[1]);
+        StringVector tempFileOutput;
         
         // if there was a file given write the data to the file
         if (!(filename.empty()))
         {
+          
           // if there is no route ID column given create one
           if (noRID)
           {
-            myfile << rid << "\t" << std::fixed << std::setprecision(0) << zerop2[2] << "\t" << window << "\t" << std::fixed << std::setprecision(3) << zeroConvex[0] << "\t" << zeroConvex[1]
-                   << "\t" << zeroSinStuff << "\t" << std::setprecision(5) << zerop2[0] << "\t" << zerop2[1] << "\n";
+            
+            std::stringstream stream;
+            
+            tempFileOutput.push_back(rid);
+            stream << std::fixed << std::setprecision(0) << zerop2[2];
+            tempFileOutput.push_back(stream.str());
+            stream.str(std::string());
+            stream << std::fixed << std::setprecision(0) << window;
+            tempFileOutput.push_back(stream.str());
+            stream.str(std::string());
+            stream << std::fixed << std::setprecision(3) << zeroConvex[0]; 
+            tempFileOutput.push_back(stream.str());
+            stream.str(std::string());
+            stream << std::fixed << std::setprecision(3) << zeroConvex[1]; 
+            tempFileOutput.push_back(stream.str());
+            stream.str(std::string());
+            stream << std::fixed << std::setprecision(3) << zeroSinStuff;
+            tempFileOutput.push_back(stream.str());
+            stream.str(std::string());
+            stream << std::fixed << std::setprecision(5) << zerop2[0];
+            tempFileOutput.push_back(stream.str());
+            stream.str(std::string());
+            stream << std::fixed << std::setprecision(5) << zerop2[1];
+            tempFileOutput.push_back(stream.str());
+            stream.str(std::string());
+            
           }
           // use the given route ID column and create a feature id column for additional clairty
           else
           {
-            myfile << fid << "\t" << rid << "\t" << std::fixed << std::setprecision(0) << zerop2[2] << "\t" << window << "\t"<< std::fixed << std::setprecision(3) << zeroConvex[0] << "\t" << zeroConvex[1]
-                   << "\t" << zeroSinStuff << "\t" << std::setprecision(5) << zerop2[0] << "\t" << zerop2[1] << "\n";
+            
+            std::stringstream stream;
+            tempFileOutput.push_back(std::to_string(fid));
+            tempFileOutput.push_back(rid);
+            stream << std::fixed << std::setprecision(0) << zerop2[2];
+            tempFileOutput.push_back(stream.str());
+            stream.str(std::string());
+            stream << std::fixed << std::setprecision(0) << window;
+            tempFileOutput.push_back(stream.str());
+            stream.str(std::string());
+            stream << std::fixed << std::setprecision(3) << zeroConvex[0]; 
+            tempFileOutput.push_back(stream.str());
+            stream.str(std::string());
+            stream << std::fixed << std::setprecision(3) << zeroConvex[1]; 
+            tempFileOutput.push_back(stream.str());
+            stream.str(std::string());
+            stream << std::fixed << std::setprecision(3) << zeroSinStuff;
+            tempFileOutput.push_back(stream.str());
+            stream.str(std::string());
+            stream << std::fixed << std::setprecision(5) << zerop2[0];
+            tempFileOutput.push_back(stream.str());
+            stream.str(std::string());
+            stream << std::fixed << std::setprecision(5) << zerop2[1];
+            tempFileOutput.push_back(stream.str());
+            stream.str(std::string());
+            
           }
         }
         // assign all the data to the output matrix
         output(0, _) = zeroTemp;
+        if (!(filename.empty()))
+        {
+          fileOutput(0, _) = tempFileOutput;
+        }
+        
+        
         
       } // No else because we still need to calculate the points at startM = 0 with regular p2.
       
@@ -117,28 +185,91 @@ NumericMatrix CalcBoundaryConvex(NumericMatrix feature, double windowSize, doubl
       Function f("rbind");
       temp.attr("dim") = Dimension(1, 7);
       NumericMatrix tempM = as<NumericMatrix>(temp);
+      StringVector tempFileOutput;
+     
       
       if (!(filename.empty()))
       {
         if (noRID)
         {
-          myfile << rid << "\t" << std::fixed << std::setprecision(0) << p2[2] << "\t" << window << "\t" << std::fixed << std::setprecision(3) << convex[0] << "\t" << convex[1]
-                 << "\t" << sinstuff << "\t" << std::setprecision(5) << p2[0] << "\t" << p2[1] << "\n";
+        
+          std::stringstream stream;
+          
+          tempFileOutput.push_back(rid);
+          stream << std::fixed << std::setprecision(0) << p2[2];
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(0) << window;
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(3) << convex[0]; 
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(3) << convex[1]; 
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(3) << sinstuff;
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(5) << p2[0];
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(5) << p2[1];
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+        
         }
         else
         {
-          myfile << fid << "\t" << rid << "\t" << std::fixed << std::setprecision(0) << p2[2] << "\t" << window << "\t" << std::fixed << std::setprecision(3) << convex[0] << "\t" << convex[1]
-                 << "\t" << sinstuff << "\t" << std::setprecision(5) << p2[0] << "\t" << p2[1] << "\n";
+          
+          std::stringstream stream;
+          tempFileOutput.push_back(std::to_string(fid));
+          tempFileOutput.push_back(rid);
+          stream << std::fixed << std::setprecision(0) << p2[2];
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(0) << window;
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(3) << convex[0]; 
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(3) << convex[1]; 
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(3) << sinstuff;
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(5) << p2[0];
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(5) << p2[1];
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          
         }
       }
       
       // rbind probably causes a considerable increase in runtime
       // rbind output matrix to the data matrix
       output = f(output, tempM);
+      if (!(filename.empty()))
+      {
+        fileOutput = f(fileOutput, tempFileOutput);
+      }
+      
+      
       // increment step size and i
       startM = startM + step;
       i++;
-    }		
+      
+    }
+    // write all data to file here
+    if (!(filename.empty()))
+    {
+      myfile << fileOutput;
+    }
+    
     
   }
   else
@@ -163,34 +294,101 @@ NumericMatrix CalcBoundaryConvex(NumericMatrix feature, double windowSize, doubl
       Function f("rbind");
       temp.attr("dim") = Dimension(1, 7);
       NumericMatrix tempM = as<NumericMatrix>(temp);
+      StringVector tempFileOutput;
+      
       
       if (!(filename.empty()))
       {
         if (noRID)
         {
-          myfile << rid << "\t" << std::fixed << std::setprecision(0) << p2[2] << "\t" << window << "\t" << std::fixed << std::setprecision(3) << convex[0] << "\t" << convex[1]
-                 << "\t" << sinstuff << "\t" << std::setprecision(5) << p2[0] << "\t" << p2[1] << "\n";
+          
+          std::stringstream stream;
+          
+          tempFileOutput.push_back(rid);
+          stream << std::fixed << std::setprecision(0) << p2[2];
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(0) << window;
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(3) << convex[0]; 
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(3) << convex[1];
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(3) << sinstuff;
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(5) << p2[0];
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(5) << p2[1];
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+           
         }
         else
         {
-          myfile << fid << "\t" << rid << "\t" << std::fixed << std::setprecision(0) << p2[2] << "\t" << window << "\t" << std::fixed << std::setprecision(3) << convex[0] << "\t" << convex[1]
-                 << "\t" << sinstuff << "\t" << std::setprecision(5) << p2[0] << "\t" << p2[1] << "\n";
+          
+          std::stringstream stream;
+          tempFileOutput.push_back(std::to_string(fid));
+          tempFileOutput.push_back(rid);
+          stream << std::fixed << std::setprecision(0) << p2[2];
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(0) << window;
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(3) << convex[0]; 
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(3) << convex[1]; 
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(3) << sinstuff;
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(5) << p2[0];
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+          stream << std::fixed << std::setprecision(5) << p2[1];
+          tempFileOutput.push_back(stream.str());
+          stream.str(std::string());
+           
         }
       }
       
       if (i == 0)   //if its the first point initalize output matrix with the data from the first point
       {
         output(0, _) = temp;
+        if (!(filename.empty()))
+        {
+          fileOutput(0, _) = tempFileOutput;
+        }
+        
       }
       else
       {
         // This rbind function probably causes a considerable increase in runtime
         output = f(output, tempM);
+        if (!(filename.empty()))
+        {
+          fileOutput = f(fileOutput, tempFileOutput);
+        }
+        
       }
       
       startM = startM + step;
       i++;
+      
+      
     }
+    if (!(filename.empty()))
+    {
+      myfile << fileOutput;
+    }
+    
   }
   if (!(filename.empty()))
   {

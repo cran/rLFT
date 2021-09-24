@@ -24,12 +24,12 @@ void openOutput(std::string filename, bool noRID)
     if (noRID)
     {
       // initalize the table headers for the data in the file creating a new RID column since it was not provided
-      myfile << "RID\tMidMeas\tWindowSize\tRawConvexity\tConvexityIndex\tSinusoity\tMidpoint_X\tMidpoint_Y\n";
+      myfile << "RID MidMeas WindowSize RawConvexity ConvexityIndex Sinuosity Midpoint_X Midpoint_Y\n";
     }
     else
     {
       // RID column was given so initalize the table headers with an added Feature ID row
-      myfile << "FID\tRID\tMidMeas\tWindowSize\tRawConvexity\tConvexityIndex\tSinusoity\tMidpoint_X\tMidpoint_Y\n";
+      myfile << "FID RID MidMeas WindowSize RawConvexity ConvexityIndex Sinuosity Midpoint_X Midpoint_Y\n";
     }
   }
   else

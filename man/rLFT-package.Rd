@@ -8,7 +8,7 @@
 \description{
 Assists in the manipulation and processing of linear features with the help of the 'sf' package.
   Makes use of linear referencing to extract data from most shape files.
-  Reference for this packages methods: Albeke, S.E. et al. (2010) <https://doi.org/10.1007/s10980-010-9528-4>.
+  Reference for this packages methods: Albeke, S.E. et al. (2010) <doi:10.1007/s10980-010-9528-4>.
 }
 \details{
 Currently the only function available is for calculating the convexity of boundaries in a given shp file.
@@ -22,7 +22,7 @@ convexity index, and sinuosity at certain point intervals along a given linear f
 \seealso{
 Useful links:
 \itemize{
-  \item Report bugs at \url{https://gitlab.com/datacorral/rlft/issues}
+  \item Report bugs at \url{https://gitlab.com/albekeecoinfolab/rlft/-/issues}
 }
 
 }

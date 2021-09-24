@@ -16,30 +16,49 @@
 
 <title>Introduction to Linear Feature Tools (rLFT)</title>
 
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -48,9 +67,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -107,187 +126,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<style type="text/css">body {
-background-color: #fff;
-margin: 1em auto;
-max-width: 700px;
-overflow: visible;
-padding-left: 2em;
-padding-right: 2em;
-font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-font-size: 14px;
-line-height: 1.35;
-}
-#TOC {
-clear: both;
-margin: 0 0 10px 10px;
-padding: 4px;
-width: 400px;
-border: 1px solid #CCCCCC;
-border-radius: 5px;
-background-color: #f6f6f6;
-font-size: 13px;
-line-height: 1.3;
-}
-#TOC .toctitle {
-font-weight: bold;
-font-size: 15px;
-margin-left: 5px;
-}
-#TOC ul {
-padding-left: 40px;
-margin-left: -1.5em;
-margin-top: 5px;
-margin-bottom: 5px;
-}
-#TOC ul ul {
-margin-left: -2em;
-}
-#TOC li {
-line-height: 16px;
-}
-table {
-margin: 1em auto;
-border-width: 1px;
-border-color: #DDDDDD;
-border-style: outset;
-border-collapse: collapse;
-}
-table th {
-border-width: 2px;
-padding: 5px;
-border-style: inset;
-}
-table td {
-border-width: 1px;
-border-style: inset;
-line-height: 18px;
-padding: 5px 5px;
-}
-table, table th, table td {
-border-left-style: none;
-border-right-style: none;
-}
-table thead, table tr.even {
-background-color: #f7f7f7;
-}
-p {
-margin: 0.5em 0;
-}
-blockquote {
-background-color: #f6f6f6;
-padding: 0.25em 0.75em;
-}
-hr {
-border-style: solid;
-border: none;
-border-top: 1px solid #777;
-margin: 28px 0;
-}
-dl {
-margin-left: 0;
-}
-dl dd {
-margin-bottom: 13px;
-margin-left: 13px;
-}
-dl dt {
-font-weight: bold;
-}
-ul {
-margin-top: 0;
-}
-ul li {
-list-style: circle outside;
-}
-ul ul {
-margin-bottom: 0;
-}
-pre, code {
-background-color: #f7f7f7;
-border-radius: 3px;
-color: #333;
-white-space: pre-wrap; 
-}
-pre {
-border-radius: 3px;
-margin: 5px 0px 10px 0px;
-padding: 10px;
-}
-pre:not([class]) {
-background-color: #f7f7f7;
-}
-code {
-font-family: Consolas, Monaco, 'Courier New', monospace;
-font-size: 85%;
-}
-p > code, li > code {
-padding: 2px 0px;
-}
-div.figure {
-text-align: center;
-}
-img {
-background-color: #FFFFFF;
-padding: 2px;
-border: 1px solid #DDDDDD;
-border-radius: 3px;
-border: 1px solid #CCCCCC;
-margin: 0 5px;
-}
-h1 {
-margin-top: 0;
-font-size: 35px;
-line-height: 40px;
-}
-h2 {
-border-bottom: 4px solid #f7f7f7;
-padding-top: 10px;
-padding-bottom: 2px;
-font-size: 145%;
-}
-h3 {
-border-bottom: 2px solid #f7f7f7;
-padding-top: 10px;
-font-size: 120%;
-}
-h4 {
-border-bottom: 1px solid #f7f7f7;
-margin-left: 8px;
-font-size: 105%;
-}
-h5, h6 {
-border-bottom: 1px solid #ccc;
-font-size: 105%;
-}
-a {
-color: #0033dd;
-text-decoration: none;
-}
-a:hover {
-color: #6666ff; }
-a:visited {
-color: #800080; }
-a:visited:hover {
-color: #BB00BB; }
-a[href^="http:"] {
-text-decoration: underline; }
-a[href^="https:"] {
-text-decoration: underline; }
 
-code > span.kw { color: #555; font-weight: bold; } 
-code > span.dt { color: #902000; } 
-code > span.dv { color: #40a070; } 
-code > span.bn { color: #d14; } 
-code > span.fl { color: #d14; } 
-code > span.ch { color: #d14; } 
-code > span.st { color: #d14; } 
-code > span.co { color: #888888; font-style: italic; } 
-code > span.ot { color: #007020; } 
-code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; } 
-code > span.er { color: #a61717; background-color: #e3d2d2; } 
-</style>
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
 
 
 
@@ -321,80 +161,396 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li><p>Return a data.frame with all the measurements (raw convexity, convexity index, sinuosity) for each feature and step size.</p></li>
 </ol>
 <p>Below is an example:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(rLFT)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="co">#&gt; Loading required package: Rcpp</span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="co">#&gt; Loading required package: sf</span></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="co">#&gt; Linking to GEOS 3.6.1, GDAL 2.2.3, PROJ 4.9.3</span></a>
-<a class="sourceLine" id="cb1-5" title="5"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="co"># read in example data</span></a>
-<a class="sourceLine" id="cb1-7" title="7"><span class="kw">data</span>(<span class="st">&quot;shpObject&quot;</span>)</a>
-<a class="sourceLine" id="cb1-8" title="8"><span class="co"># to read in your own shp file use the sf package function st_read()</span></a>
-<a class="sourceLine" id="cb1-9" title="9"><span class="co"># choose any positive window size and step size. Here I use 50 for step size and 100 for window size.</span></a>
-<a class="sourceLine" id="cb1-10" title="10">outputTable &lt;-<span class="st"> </span><span class="kw">bct</span>(shpObject, <span class="dt">step =</span> <span class="dv">50</span>, <span class="dt">window =</span> <span class="dv">100</span>, <span class="dt">ridName =</span> <span class="st">&quot;RID&quot;</span>)</a>
-<a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt;    0.05    0.00    0.05 </span></a>
-<a class="sourceLine" id="cb1-13" title="13"><span class="co">#&gt; [1] &quot;Features skipped due to size: &quot;</span></a>
-<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt;  [1]  3  4  5  6  7  9 10 12 14 16 17 18 19 21 22 23 25 26 27 28 29 30 31 32 33</span></a>
-<a class="sourceLine" id="cb1-15" title="15"><span class="co">#&gt; [26] 34 35 36 37</span></a>
-<a class="sourceLine" id="cb1-16" title="16">outputTable<span class="op">$</span>RID&lt;-<span class="st"> </span><span class="kw">as.character</span>(outputTable<span class="op">$</span>RID)</a>
-<a class="sourceLine" id="cb1-17" title="17"><span class="co"># You can then look over the data using:</span></a>
-<a class="sourceLine" id="cb1-18" title="18"><span class="kw">head</span>(outputTable)</a>
-<a class="sourceLine" id="cb1-19" title="19"><span class="co">#&gt;   FID      RID MidMeas WindowSize RawConvexity ConvexityIndex Sinuosity</span></a>
-<a class="sourceLine" id="cb1-20" title="20"><span class="co">#&gt; 1   1 Feat1310       0        100       28.549          0.571     0.635</span></a>
-<a class="sourceLine" id="cb1-21" title="21"><span class="co">#&gt; 2   1 Feat1310      50        100      -18.641         -0.373     0.578</span></a>
-<a class="sourceLine" id="cb1-22" title="22"><span class="co">#&gt; 3   1 Feat1310     100        100      -19.891         -0.398     0.625</span></a>
-<a class="sourceLine" id="cb1-23" title="23"><span class="co">#&gt; 4   1 Feat1310     150        100       24.944          0.499     0.623</span></a>
-<a class="sourceLine" id="cb1-24" title="24"><span class="co">#&gt; 5   1 Feat1310     200        100        2.458          0.049     0.501</span></a>
-<a class="sourceLine" id="cb1-25" title="25"><span class="co">#&gt; 6   1 Feat1310     250        100        9.879          0.198     0.512</span></a>
-<a class="sourceLine" id="cb1-26" title="26"><span class="co">#&gt;   Midpoint_X Midpoint_Y</span></a>
-<a class="sourceLine" id="cb1-27" title="27"><span class="co">#&gt; 1   354048.5    1226757</span></a>
-<a class="sourceLine" id="cb1-28" title="28"><span class="co">#&gt; 2   354045.2    1226806</span></a>
-<a class="sourceLine" id="cb1-29" title="29"><span class="co">#&gt; 3   354010.6    1226834</span></a>
-<a class="sourceLine" id="cb1-30" title="30"><span class="co">#&gt; 4   353967.2    1226824</span></a>
-<a class="sourceLine" id="cb1-31" title="31"><span class="co">#&gt; 5   353935.4    1226862</span></a>
-<a class="sourceLine" id="cb1-32" title="32"><span class="co">#&gt; 6   353907.5    1226904</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rLFT)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: Rcpp</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: sf</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Linking to GEOS 3.9.1, GDAL 3.2.1, PROJ 7.2.1</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># read in example data</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;shpObject&quot;</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># to read in your own shp file use the sf package function st_read()</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># choose any positive window size and step size. Here I use 50 for step size and 100 for window size.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>outputTable <span class="ot">&lt;-</span> <span class="fu">bct</span>(shpObject, <span class="at">step =</span> <span class="dv">50</span>, <span class="at">window =</span> <span class="dv">100</span>, <span class="at">ridName =</span> <span class="st">&quot;RID&quot;</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    user  system elapsed </span></span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    0.06    0.00    0.06 </span></span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Features skipped due to size: &quot;</span></span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  3  4  5  6  7  9 10 12 14 16 17 18 19 21 22 23 25 26 27 28 29 30 31 32 33</span></span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [26] 34 35 36 37</span></span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>outputTable<span class="sc">$</span>RID<span class="ot">&lt;-</span> <span class="fu">as.character</span>(outputTable<span class="sc">$</span>RID)</span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a><span class="co"># You can then look over the data using:</span></span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(outputTable)</span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   FID      RID MidMeas WindowSize RawConvexity ConvexityIndex Sinuosity</span></span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1   1 Feat1310       0        100       28.549          0.571     0.635</span></span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   1 Feat1310      50        100      -18.641         -0.373     0.578</span></span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   1 Feat1310     100        100      -19.891         -0.398     0.625</span></span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4   1 Feat1310     150        100       24.944          0.499     0.623</span></span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5   1 Feat1310     200        100        2.458          0.049     0.501</span></span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6   1 Feat1310     250        100        9.879          0.198     0.512</span></span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Midpoint_X Midpoint_Y</span></span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1   354048.5    1226757</span></span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   354045.2    1226806</span></span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   354010.6    1226834</span></span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4   353967.2    1226824</span></span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5   353935.4    1226862</span></span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6   353907.5    1226904</span></span></code></pre></div>
 <p>We can visualize the results of the function:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># Make the table spatially aware</span></a>
-<a class="sourceLine" id="cb2-2" title="2">outSF&lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(outputTable, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;Midpoint_X&quot;</span>, <span class="st">&quot;Midpoint_Y&quot;</span>), <span class="dt">crs =</span> <span class="kw">st_crs</span>(shpObject), <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb2-3" title="3"></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="co"># plot a single island</span></a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="kw">ggplot</span>(<span class="dt">data =</span> outSF[<span class="kw">which</span>(outSF<span class="op">$</span>RID <span class="op">==</span><span class="st"> </span><span class="kw">as.character</span>(shpObject<span class="op">$</span>RID[<span class="dv">15</span>])), ]) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_cast</span>(shpObject[<span class="dv">15</span>,], <span class="st">&quot;POLYGON&quot;</span>), <span class="kw">aes</span>(<span class="dt">fill =</span> RID)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="st">  </span><span class="kw">geom_sf</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-8" title="8"><span class="st">  </span><span class="kw">geom_sf_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> RawConvexity), <span class="dt">nudge_x =</span> <span class="dv">20</span>, <span class="dt">nudge_y =</span> <span class="dv">12</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-9" title="9"><span class="st">  </span><span class="kw">theme_classic</span>()</a></code></pre></div>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAkAAAAHgCAMAAAB6sCJ3AAABd1BMVEUAAAAAABQAABgAACQAACwAADoAAGYAFDIAGxgAGz0AJD8AME0AOjoAOmYAOpAAZrYUABQUACQUMkwkAAAyFAAyTFkzMzM4AAA4ABg4ACw4Gxg4Q146AAA6ADo6AGY6Ojo6OpA6kNs/JAA/TDI/WVlMMhRMWVlNTU1NTW5NTY5NbqtNjshZPyRZTDJZWT9ZWUxZWVljAABjABhjVG1mAABmADpmAGZmOgBmtv9uTU1uTW5uTY5ubo5ubqtujoNujshuq8huq+SMGwCMVD2MZW2OTU2OTW6OTY6OWU2Obk2Obm6ObquOg02Ojo6OyOSOyP+QOgCQOjqQtpCQ2/+rbk2rbm6rbo6rjk2rjm6ryKur5OSr5P+xMACxZT2xdm22ZgC225C2/7a2///Ijk3Ijm7IyI7I///VQxjVdm3bkDrb///kq27kq47k/+Tk///4VCz4ZT34dk34dl74dm3/tmb/yI7/25D/5Kv//7b//8j//9v//+T///+gbGLbAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAfUUlEQVR4nO2dj38bRXqHBYeBkCuml0uAS+Ca64HpBcL6bNpALs3ZDdA2LU6JA6TxRde42BGidmxZlm3tH99535nZnV3J0kqzP2Znv8+Hj1fa9cpC++Sdd1c779sKAbCgVfUbAPUGAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASuKFAhyNgAIBKyAQMAKCASsgEDACggErIBAwAoIBKyAQMAKCASsgEDACghkcPLZQ/Hz7EGr9eZPalWbHx+1mFu05vi9h9W9Q/eAQAbthYfkjzCmrQxqXw/jx7w8e7AAgQwgUMTJaovc4Aijwoz5+EiK0/klIpAJBIo4Wox90dJEQ5mIPIu0OH7/rxDIBAIZsDbmENZZFNnPq8/ooQxAZw9uJXMgMzuiGMa/rZaJbb4CgQyUG+0oiW63FnUYanMA6iyOS6KVbieri/xYL81t3gKBDNgNOvxnD2TY4aN/snpL/RAD2LMxAqnsSC7F5qOFkczJXyCQAR/0I3JHHf4OhR12h9eGnXGDksqOzNeIlsltPgKBDEYE4sd8dagTjUQjESgZZJJDl/cBCAKZREOYOPwfBoKzB9eVO+3FxC+ZtM0g01HGqGXb9wAEgUykGzcvtVqvfdg7XL/aCz79tUyo2STzl2JkdqToqOFNLRPb/AQCJRFhp5eCQtGEPWR2JGmr+KOX5jZPgUAJRuyJJDp3lzg7CjvKF700t/kKBDI5zx8Zh8bvM5odxYOc/ykQBDKZ4M+5YUhlR7TQJ/nRyb6ROXkLBNKIQz7Zn0lhqLlAIAUHjakGTcyGGgkEUmQVCGEoCQRSZBcIYcgEAkmC3gz+yDAkdqj6XTsABGKmnH+Ng0NW1e+7eiAQMYc/UiAMZRAonM8fKRCyIQg0pz89nTQ1/KQMAs3rj8HMCsU3zYbH11ryyegMtFoAgez96c0ahszZZkfnzkCrB40XKBd/pENZ/6Q5cUjeNTt2Blo9aLpAufkzg0JHZoBpX0+vq9d91NMP8nBz6aMnYXj65dIf9njF4POlf9gJu0vEBj0TP9UGejC4vZP5tSsnT396WUcyY7ZZeLL6W348MgOtLkw/yNsbYf8Pe8PNjbB7g56ffvUk7EqXxHp6NvjiyfCHpbtCICFWnQQavfswD4em/lljtpnIoa/zbKGRGWh1YepBPv16Ry+kGoM7e2olydMnqbY3+t+EP28Mbv94o04CFaCPVGiKQ/FsM4V4nJ6BVhumHuTBne9pCGNthDBmBJIRidcogXZEuJICXRE4LlBB/kiHzvmbdK/Z9Xi2mUI8Ts9AM6F6M+rONOOOflmLRl8ROFmt6NOeLpBIbIQ9YrRSAkXZkHoqkqS1UA5ht3dO7+/VJQIV6E9vchiKZ5vFj8fNQNOIMe1kVd33GOdH8sZ9dfbPc5EqIUMEYnPiCCQynrBPyU5fJkKnX67pXxXqdNdqIlCx/kiHzvnT8WwzrtbAuc+4GWgKjjry1+PaMqlaNNUl3tNzoPtsTpwDRbFom8WRp14MbR8+elwLgYr3p3d+GFI10FgaquQhZ56NzEAzYYGM2jKqFs1R5ZccM52FifBD45TMeXQEGj7ieBT7IwWTp2IZX7tE1JARqi8PLjzvHa63WlfFYdbLghzK591TdpSsLSMDk3FFoBqmH2SR8pASMvMhR/pL8sIQD2j6chAhI1TXTYHaUZAX/2o5/mxd7B0sX42XhSlk7ZCIThRpkrVl+KF5RaAaGnIlWqUMTGeR/Xnxzr1eb/fCc70szKBcwpBIslO1ZaRA8RWBjvXfmIuGCKRSBqb9q/jQanGKFSiHMERn+skv6tUQFiqB2gt2f2BeGiKQcQXl5NJvWq1XnvJxPVheSSyLdSic7x5YeYa/mq4xHNeiofSuU1Ui1DyBPnlb5Dsv3n3K2TMHHr0smjnvotZn+on/i6igozz7r654deMEkufvB8srvNxXoUgvXRTIrHxO/xfqRF+XQONtncpu8G+aQOr6jxYovSxeoCCYUi6mZjRMoEAFm4M/3pPL5RW9LF4gY+pZEPgiUrMEovhzuC5c2b/wPL0sQaBRgtqb1CiBAipbJ6INX4jmK9DmslJqa1JjBApL+v7LlhGRHJ//2iCBauFPhBbJ9RnUjRGoiNtXy8D1GdQNEaiu+kCgyuEBoLb69NS5v7sG+S6Q/AdctQTWQKCqmKnwmMM4axAEqgcQqBr4NLjqg58Lrhrkt0D1T34iIFD51PfcfRyOGuSvQH7pA4HKxjN9IFC5+BZ+ehCoVPzTBwKViIfhpweBSsNPfSBQWXiqDwQqCW/9gUCl4K8/EKgUIFDZ+CWQx/5AoBLw2R8IVDxe+wOBisdrgRz1xyeBvPYHAhUO/KkETwTSlVcJmvv+ytPevqwIt1Ltgc8LCFQsR29+qD/qg+WLvd6Wkmmr8qoJ+eCsP74I1Hkj+qz3X76nSrCqx3Xl4I/85rcotEYC6UJrqsBd1ESjMjwR6HepOs9SoMP1ixUc+LzYYvt3qYLRG/r/UzfLkMu4iUZ1+CHQzeW48qr88HnoqnMAEpkcvfuD5RXx//ELXYJVN8vgpdFEozr8ECiuvCrZleZs1TgA7V/kKMo/burWULpZhtE0AwLlQLLyqvBHnnvFK2oJu0MVHAPdW0w3yzCaZlTenq72AlGBW5kAHSyvyE9+S41cpdTuLQ4tUBAlOrpZRtQ0QzXRqJLaC5SovMof/K72puj+BQVjCiTL1KtmGYmmGaMNDsul/gKZlVejz52pcwrUU/8jL965HI1TullGomlG1WOYHwLpyqtUhXVXX4Hmkqw1hgU6uJRso2peBzKbaFRG7QXy9yswFihoUzvMuAumKZDZRKMy6i6Qv/6wQAG3ZV6MO2GOXIlGEm2Fx/4Q7n4FFlFngbyofjiJGvhTZ4F8qV53PjUXaLgpm+tyt11i8Dm1343b7HKTXXqq2uzKDs6l9Y33XqA6+DPpIG9vUI/44eaG6vdNbZq70iXqHR/2WZxt7tg8/GHprur4DYHywO3q4gbnH+TTr3f0QjoxuLOnVnLH7+2PHt/W3ePD/jfhzxuD2z/eKFGg0G9/nO6QEXP+uxzc+Z6GMNaGW8THEUhGJFZFDHA0nimBdkQ8kgJdERT8CficQHshkMhohD00WkmBomxIPWVVBl88oSgkh7DbO6f398qKQD7744dAMvTEEYhc6VOW09dJtVZF5kH8vLtWkkBe+9ML6uLPpBzoPpsT50BRLNpek78xTqDho8cQyJ56JNDE5LMwEX6Gm2sq59ERSOXNUhiyavjdTvRcnYpNe21r4I8jTDjIIuUhF2Tmw7IsyQtDXxkC0XWgj8znYbcMgeCPK9TzSjT8cYZaCgR/3KGOAsEfh3BVoOie35NVOftSL+kemHrf6zyZmvnjqkB6BqZ4QHfkXTeWrz33Zsb7OCBQLq+tZ2CGRyTS0avP9PL4rXvmffPeUTd/HBUonnnJN46L8UwtL3/yjtcC1c4fNwUyZl7KyNO6xcuPWyuH6xc8HsLq54+bAkUzLyl3XqS8+ZZYBp+u05TlLX+T6Br646RAiZmX4uxr4Vvx5Oal1sv/8s49Kh91uF7vOcvnUUd/nBQoMfOSELkPX/sRuQ9PYvY0B4JAOb52Yv7TB689Z2d2Lzz3WKBa+uO8QGcPFoNP3l7hYmMvxDJRAdEr6umP0wLxbEyR+3C1H5r9rpfwxx1cFUjha/vBEerqj9sCNUaf+vrjsEBBc/SpsT/OCtQge3oQKMfX5tkITQo+RI39cU0gvoLYEHtkTUc6q1QFyI7iC6gnn9FVDH0PlMu4KFDVR7YktmQh8YtB2DaqRMnH7YWH8b1QTuOUQEHQHIFUJfr9ly8bt1+quw/o+7+H8b1Q+R6VnHFHIJn4NMUfXYme859YIFkO8WiR1+h7ofI+LrniiEBNS5sJWUST/u/jIexowfgKUN8LlfdxyRUnBGqgPT1DoM5CFGTaqh4rC6Tvhcr9wORJ9QI1Mfgwqgpr2IkViYo+y4FL3wvlMlUL1EB7dlV3DyEQ+dOO40+cMceZD3KgSTRQnxjuYhB2zLOsqHcTa+NEP7BpVClQo/URAr31MB1gdAqk64gvhsfX3E6BqhSo2foogfTtu3zBML5qGOVAjqfQFQrU8PDTq/c3YDFVCdR4fTzxpyqB4E9J/lAtCuI6D4vq2eL0/TJTjUDwpzyBOK2iXJwFkgVOcjyzq0SgxvtTXg1WnZe3F2OBcm1SV4VA8Ke8KtBjBaK543lRgUCN96cCgegrWUOgHNsclisQXdj4xVN5G17c0FTemne4Ltclt3lJqQJFtzmaAuV3k1GpAtHXy8HWhedUo8VoiSv7vG9dFO5c7aW2eUmJdehZmeNr5I0HEYhucAmoQsLL91Sv9150a140+d3c5iklXgKSyhylIlC7xjlQkC6xoW/NI/yunqAp8xKiUqb96jNPzsICqowgowxPdSciXQ6WV3qpbR5S6iXo6DrQoifXgYJdIYisEpUWSKy58Dy9zT/K/QojOnFvXY+vROc50aNsgT7QJTao3Jj6SOMBi8av5Db/8OQ7ME3JArVfisx4MUagg+WV1Brv8MyfkgXqvPp7+hD1GZf6TPkpJ88Hyyupbd4BgSxe+/i9y/wh6nJjCnbmcF0836drQIlt3gGBLF5b3X63osuNqQuGcsCiK9EUeHQpMj/xzZ/EQT5ZXch1BsAYORv/PZjXAokct9Uq9hIBBMrt03WE9EHOs6IIBBrFe4GkQuaXtcNN2SlVNY2ntrrUS7W7RFC75qh5M3WaN55CoDGULVAwnvz+QPogd/iOWbNgzfYGtWYebm6o5s3Uc7crXeIG8n3SafjD0l3VsHmCQI0pvXEupQeg8f9iixKIrnTz12zG/SLUN14tpBqDO3tqpWwi/xE1iu9/E/68Mbj9441JAjWn+M+5+C3QyeqY+4wGd76nIYy14X7fcQSSEUl2BJcC7VCveRboigACjeC3QGOhxEbYQ6OVahivsyHdP56MkUPY7Z3T+3uIQBNookAy9MQRaPDFk7BPyU5fJ9VREi0edNeQA02ggQKJmELmxDlQFIu21+RvJAQaPnp8vkCNPwdrokB0FibCz3BzTeU8OgINH8kRLCmQOhUb/9oQqIkCiZSHlJCZDyfMS/LC0FdjBQq7EOh8HBPo+NqY+8uoYaT82VETOujXbvFvj55llfplKgRyTaD3x0zv4ZVHUfXzN3+iqufH7z2kxWi5KwhUKo4KdLLKvnCk4cfthW/lJrLmiOZwtG8d/91P4ck/po0r94ayxhvkqEDt6zTbmSPN+8/iISyMJ0GLbQ5EIAjkmkDXuNgLqaFii1iYAsmeHerefBGbRu/VgECl4ppAapxaFR7RvWBt+h7dFEhNYT1ZlfWFxsyJhkCl4qhAKvqs3koPYe2oupCUSUekGAhUKm4KRJ4IPeiZCDOGQGf/Rb6oSrGIQA7gqECqPVCn1fqbf7p19oDPyGiTDDj6ctCRHOeSlDwvrOkGOSZQDkCgUoFAlq/dcIHKvyPaN4EablAQncbEpzPRNAY9JSbXqTHeCdRsg4KoN0/UoydqjEpnzHQvul7mg38CNdqgm/JsR5/1ELoxqu7PE/fpyYXSZ2XkCaq0pvlYNkPVTVEJ3RhVly3MsXxhKaBOdJkEUWyJBVKNUTuLRzwfTy/rAirVl8kYgXRj1DbNxxPhRy8LPC65gl4ZZTJGIN0YlfPmk9VbelngcckVdOspk3ECqWd8440QRy8LPC65gn5hZTJGIN0YlZPpk88e6mWBxyVXqutYOObzlT0PeonCv60W1b7TfRB69a6fOEYg3RiVrwV11DUh1zvtGlTXM3WMQbLnAemiHlDNXyosrfsgmNvqSEogfZ8fFySgwgTkjV7WBIea7qqeB4Ld13UVe9UEwai8GW2rI95VB6q47Xfy0416Hrx49y+mJHrMYoFS22oGBMr3tdMxSFfbXEnkOVuy5u/B8srotpoBgXJ+7dTnK93YvZhIlHdfVjVcyaPUtroBgXJ+7VQIYjdevPvUlGQ3qvm7/8rT1La6UV6bsPKoViBl0G5LnqTLXFkXk2a24nOug+WV5La6UWKjwvKoWKBkDIqCS/RgV3ae030QEttqBwQq4rVNg0YE0kvdByHxS7UDAhXy2oZBCYGoD0I0ZOk+CL06C4QcqJjXbszXYh6egzkhUGMMgkBFvXZDDIJAhb12Iwzy0h9HBAqDBlQAhkAFvnYDapD76Q8EKg0IVORrQ6C64ohAZJDfmbSn/jgjEOG1QRCo+NeGQDXEJYF8NshXfyBQSUCgUl7bX4MgUCmv7a1A3vrjmEDeGgSBSnptTwXy1x/XBPLTII/9gUBlAIFKfG0PDfLZH+cEgj81Y8JBHm7K5rrcbZcYfE7td7tLxIZeT09Vm93B5xuh0YO3kQLpEkdRqaPeJ9TUjeq1qALiVM6lRkU0pzHhIG9vUI/44eaG6vdNbZq70iVj/TZJEw5/WLqrOn5bCVR3f6KZtPGM2o9VsR9VQJyKauZYSLxyzj/Ip1/v6IV0YnBnT60kldR61T2+/03488bg9o837ASquz+6xFFc6qgXqK6juoA4l/XNr5B45Zx/kAd3vqchjLXhFvFxBKLIo9aLgYzGMyXQjohHUqArguYJpEscRaWOqLmBbMueqNzbDIFERiMsEaOVEijKhvipWj/44kkoopAcwm7vnN7fs4hAdfenNzIpOxApz29HC4g3YghTISaOQORKn7IccseITDoP4tjTXZtfIA/8SQpEPSmOr13n9n9mAfHOaOO/2jIhB7ovx6goB4pi0fZaaOZGCYGGjx5DILWMz9+TBcQ7rdpUgZ7O5LMwEWaGm2vqLExHIJk3q/Vk1fA7dRpP6shTsWmvPQ4f/DEFMq7/JAqItz2KPxMPskh5yAWZ+ZAc/SV5YSiREXXlSkIGpC4E4uVl+X81UkC849FFoNClK9Fe+BML9FZUSPwW5z66gLhHJ2CMMwL54U909vVJopC4UUBc9tD2JwuCQEXg99dfCVwRyCd/8uwo6TyOCOSVP8V9og4CgXKmUeEndEUgT/yhCf4Ffp5O4oZAN1VbsBdvt6JqrLpVWG9LroqeO4uXZXyn4YRAJ5dUWzBVCpqIW4Vd5WX03F0gUFWv/bFqC0a9VDSJVmHih35eoSBTCCBQVa/NKRDJsXU1eUxIHDPouCxQwEWOCvw43cQdgXiY+k0yzxHrdi/ux+vcHcKadvIV4YxA1BbsxdtXZbsnBa3bal2M2mTsVtMuNbpBft9oFsTBkBL7q2RPU/VxR6C4LdjBsn7E67bkGdhKz/ydctlKeCujIPf+PVy/8OGnv/5Vc+0JnREo2RbMPG6cV/O6rYriT3yDPLEvn+y+/s7l4OOXLqv7NZqLCwIFybZgasBIr9ut6CJQfIM8cbhOQgef/O3fv/VQuuPb/Rkz4oRAk9qCUdcnathc4QmY+af3X7osMp6zB7fIG56ic+TPrRnz4IRAUVswSkqFP+NahVXY7TKaoiP4Hc/y6ixy4KFJgmcPIFDVr+36N2FqhgXlyvKu+OP3n8mR62S1tfAthrCqX7sOAqkzLZkxJ+4qRA5U/Ws7bpAxw6ITzQgkb9idjj+TBOcBAk0nmmERhu1F/YjkOXsgcqFrjU6B3BDI8UYrPMOCb5DnHxKdAzU7hXZDINdb9TT6SvM0INBU4M8kINA04M9EXBDI6RwI/kzGCYFcPQ1r4k3ys+KGQG4a1MhbVGfFEYGcNAgCZcAVgco2KPqGXc8WOhidWQSBMuCMQHMYFNdi1o/VN/epbWPgGwqlPxeTs4bim/iDRt4kPyvuCDS7QeYtivz4cJ3mkbEBU25f3H1dRSA9W2h/ZGYR0udMOCTQjAaZt5qqx3oOWfo21BFevPsX8/40s7ChnlkEf7LhkkBhMItC5q2m6nH0I3kb6giH6yuJ7Xq2kDGzCP5kxCmBZlTIlIAfG0PYRIHEMGVu17OFjJlFv8//0/AUxwSaSaERgaJCDJMFoplnxnY9W8iYWXSp4V+xz4BzAs2g0IhAdCp1uM6zN84RiO6svpq8vXq0PUrv5ioEyoqDAk1ViC0YJxBPAZJrp03iiLbr2ULGLKKAqvGCbDgpECmUIQzlIVB6KfLrINkYBUzEUYHCLA6NHcKyJNFquzl7KJ5ZdElW5QXZcFegkB2aJJE687oay6TmlWUQ6DwaXCZhPpwWiMg0mOUG9JkV5wUKy3QI/sxMHQQKS3IIw9cc1ESgcGpClIXJt85Cn3moj0AEOzT3HdSpm/eDFLm/20ZQL4EEwdxzOOSeECZfaifQvJOAgiDEHYYFUFOBZk6IArVrIW+pydRPoEiDWRzCeFUUmQ/ycFM2TFW946m7LrVU7S4Rqmvz57S06Bs/MxkVQr5THJkP8vYGdWgebm6oHs7UercrXaL1PyzdVQ2byxQom0LQp0CyHmRqEx+a3eIHd/bUSlKp/03488bg9o83yhYow53U8KdIsh7kwZ3vaQhjbbjtdxyBKCIpgXao1zwLdEVQUsY6LQhBoCLJLJDIb4Q9YrRK9Y2XT+UQdnvn9P5e2REonBaEIFCRZI9AbE4cgQZfiIGLcp6+Sqrl4NVdq0CgyUEIAhVJ5hzoPpsT50BRLNpe079DG4aPHlcg0MQgBIGKZJazMBF+hptr6ixMR6Dhoyf6V9gseSo222vnwbkG0S2GXJy3bd5qGN32zLUOzx7gNsQ5yXyQRcpDZsjMh1TpL8kLQ18lBQq71Qh03jB2sPyGcEfY0b4ul5L2ghTo7MECVVul7TBoHmp4Jfpcxhq0//JlDjMcaXRRcKowLx91fqnrPTe8YPi8+CTQOUEoYDkSMy2OFpUux+//FQJZ4ZVA44NQwENXZ/FI5UKM1EV13cEQNj+eCTQuCAVhR4xX7dZiaEz4kgKprjupBBvMgG8CjQYh4Q9Vk+cAcxLNWZajluq6I9s2Nbvz4Lz4J1A6CAXyhKtDXS5SAumuO+g8OD8eCpQKQh/IyMKSxJPeI1248yAEmhsvBTKDEHdKCVWflE4qB1IPaAhDEj0ffgpkBKFd3RxOXW1WDXcSAnHXHfgzF74KFBuEr8IKxVuBomEMAhWKvwLpIASBCsVngWQQgkCF4rVAFIQwF6xYPBcIs1GLBgIBKyAQsMJ3gTAfvmC8FwgUCwQCVkAgYAUEAlZAIGAFBAJWQCBgBQQCVkAgYAUEAlZAIGBFoQJl5kr2X81v10r+aHHvt8ADOfEgV/R3k1ypYtdK/mg177dAIFBtdoVA51O3A1K391sgbggEagsEAlZAIGAFBAJWQCBgRYkCqRL23PDHaBLFK8KoyvSSrhK8Ldb26Xf6N+bfM8sfNdfPuKtugjXH+6UN6g3P+kejZ8ldq6E8gfrq8+qqzyRqkSBX8ObTLzeogwt33uiuiU3/ST/+OcuesvdLas+1LH9UrZ9rV9UEa/b3y4de9RiZ/f3Ss/SulodnXkoTaPsj2QNh8Kd/488mKlAuV8jNqhWH7P1zZ2/46LH48a+Z9/x6J7nno//IsmtodqyabVfVBGuO96sK/M/3fvlZateo3HvJlD2EDR/9twy/XRVzoxWDlEDi4Jze/7/vdsQyw54qAqX3zPJHQ6Nj1Yy7qiZY87zfL3l4muv9ymcju1ZD2QJ11+T4Hf3b0ivUxyqGsI+ecHQW/6gGd0WkH9zNsqfqwZDeM9OuRseqGXdVTbDmeL/UakTsMdf7lc9Gdq2GkgXifi08muvOq3pFlAr/WUfj7kZX/DtbE6N7hj2j7lPJPTP9UaNj1Yy7xt2vZn2/zPbGnH80SqLNXauhZIHkmcVa3CQqWhF9rFE07t/43yfh4C79mL6n0QnP3DPbH407Vs24q2qCNcf7ZbRAs/3R+Fly12qo5jTebBJlnqFyJqNPSE//Xfz7Hj76006WPRMRKN4zy66J9TPuKptgzfF+Sfjhd/O9X+M03ty1GioSSHU95DXmZ9NfWoqGk+EmqbR9I/Oe+oqMsWemXY2OVTPv+mV09WnG99ud//2aAhm7VgOuRAMrIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICJaD+zier16t+GzUCAiVpL9J/IDMQKMnxe9++j/bfMwCBUnCTeZAZCJSi3cIINgsQKMnRq/+zihA0AxAowYmw5+hVJEHZgUAJ2txZHoNYdiAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgErIBCwAgIBKyAQsAICASsgELACAgEr/h+9E0n6kCB18wAAAABJRU5ErkJggg==" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the table spatially aware</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>outSF<span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(outputTable, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;Midpoint_X&quot;</span>, <span class="st">&quot;Midpoint_Y&quot;</span>), <span class="at">crs =</span> <span class="fu">st_crs</span>(shpObject), <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plot a single island</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> outSF[<span class="fu">which</span>(outSF<span class="sc">$</span>RID <span class="sc">==</span> <span class="fu">as.character</span>(shpObject<span class="sc">$</span>RID[<span class="dv">15</span>])), ]) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(shpObject[<span class="dv">15</span>,], <span class="st">&quot;POLYGON&quot;</span>), <span class="fu">aes</span>(<span class="at">fill =</span> RID)) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> RawConvexity), <span class="at">nudge_x =</span> <span class="dv">20</span>, <span class="at">nudge_y =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
 <p>For a complete definition of the method, see: Albeke, S.E. et al. <em>“Measuring boundary convexity at multiple spatial scales using a linear “moving window” analysis: an application to coastal river otter habitat selection.”</em> Landscape Ecology 25 (2010): 1575-1587. <a href="https://link.springer.com/article/10.1007/s10980-010-9528-4">linked phrase</a></p>
 <div id="example-of-addmvalues-function" class="section level3">
 <h3>Example of ‘addMvalues’ function</h3>
 <p>You can use this function if you just want M values added to your sf object. Your sf object must be of type LINESTRING, MULTILINESTRING, POLYGON, or MULTIPOLYGON. The M Values are calculated by using the euclidean distance between the sf objects x and y coordinates (The sf library does not know how to handle M values so it treats them as Z values.)</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">data</span>(<span class="st">&quot;shpObject&quot;</span>)</a>
-<a class="sourceLine" id="cb3-2" title="2">monly &lt;-<span class="st"> </span>shpObject</a>
-<a class="sourceLine" id="cb3-3" title="3"></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co">#Display coordinates</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="kw">print</span>(<span class="st">&quot;No M Values&quot;</span>)</a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt; [1] &quot;No M Values&quot;</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="kw">head</span>(<span class="kw">st_coordinates</span>(monly))</a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt;             X       Y L1</span></a>
-<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt; [1,] 354048.5 1226757  1</span></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt; [2,] 354047.0 1226759  1</span></a>
-<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt; [3,] 354047.0 1226760  1</span></a>
-<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt; [4,] 354046.9 1226798  1</span></a>
-<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; [5,] 354044.8 1226808  1</span></a>
-<a class="sourceLine" id="cb3-14" title="14"><span class="co">#&gt; [6,] 354041.0 1226816  1</span></a></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># Assign M values to each vertex</span></a>
-<a class="sourceLine" id="cb4-2" title="2">monly &lt;-<span class="st"> </span><span class="kw">addMValues</span>(monly)</a>
-<a class="sourceLine" id="cb4-3" title="3"></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="kw">print</span>(<span class="st">&quot;M Values Added&quot;</span>)</a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt; [1] &quot;M Values Added&quot;</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="kw">head</span>(<span class="kw">st_coordinates</span>(monly))</a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt;             X       Y         M L1</span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt; [1,] 354048.5 1226757  0.000000  1</span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; [2,] 354047.0 1226759  2.449931  1</span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; [3,] 354047.0 1226760  3.720473  1</span></a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="co">#&gt; [4,] 354046.9 1226798 41.838002  1</span></a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="co">#&gt; [5,] 354044.8 1226808 51.931361  1</span></a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="co">#&gt; [6,] 354041.0 1226816 60.504098  1</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;shpObject&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>monly <span class="ot">&lt;-</span> shpObject</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Display coordinates</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;No M Values&quot;</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;No M Values&quot;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">st_coordinates</span>(monly))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             X       Y L1</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 354048.5 1226757  1</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 354047.0 1226759  1</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 354047.0 1226760  1</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 354046.9 1226798  1</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 354044.8 1226808  1</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] 354041.0 1226816  1</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign M values to each vertex</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>monly <span class="ot">&lt;-</span> <span class="fu">addMValues</span>(monly)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span></span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;M Values Added&quot;</span>)</span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;M Values Added&quot;</span></span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">st_coordinates</span>(monly))</span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             X       Y         M L1</span></span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 354048.5 1226757  0.000000  1</span></span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 354047.0 1226759  2.449931  1</span></span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 354047.0 1226760  3.720473  1</span></span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 354046.9 1226798 41.838002  1</span></span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 354044.8 1226808 51.931361  1</span></span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] 354041.0 1226816 60.504098  1</span></span></code></pre></div>
 </div>
 </div>
 <div id="planned-future-functionality" class="section level2">

@@ -61,6 +61,13 @@ bct <- function(sfDataObject, step, window, ridName = NULL, filename = "")
     }
   }
   
+  # Force rename of the geometry column
+  
+  if (attr(sfDataObject, "sf_column") != "geometry")
+  {
+    names(sfDataObject)[names(sfDataObject) == attr(sfDataObject, "sf_column")] <- "geometry"
+    st_geometry(sfDataObject) <- "geometry"
+  }
   
   # # Route ID setup
   # noRID <- ridCheck(sfDataObject, ridName)
@@ -126,6 +133,11 @@ bct <- function(sfDataObject, step, window, ridName = NULL, filename = "")
   #   colnames(finalTable) <- c("FID", "RID", "MidMeas", "WindowSize", "RawConvexity", "ConvexityIndex", "Sinuosity", "Midpoint X", "Midpoint Y")
   # }
   colnames(finalTable) <- c("FID", "RID", "MidMeas", "WindowSize", "RawConvexity", "ConvexityIndex", "Sinuosity", "Midpoint_X", "Midpoint_Y")
+  if (nchar(filename) > 0)
+  {
+    myFileData <- read.delim(filename, header = TRUE, sep=" ")
+    write.table(myFileData, filename, sep = "\t", row.names = FALSE)
+  }
   
   print(stime)
   print("Features skipped due to size: ")
